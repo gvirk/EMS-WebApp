@@ -37,70 +37,77 @@
 			</div>
 		</div>
 		
-		<!-- User Info & Logout -->
-		<div class="row">
-			<div class="col-md-4 col-sm-4 col-xs-12"></div>
-			<div class="col-md-4 col-sm-4 col-xs-12 user min center">
-				<!--  Show user name and roles -->
+
+     	<!-- NAVBAR -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active font-size-nav">
+		        <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item active dropdown font-size-nav">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Expends 2018'
+		        </a>
+		        <div class="dropdown-menu font-size-nav" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/january">January 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/february">February 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/march">March 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/april">April 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/may">May 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/june">June 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/july">July 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/august">August 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/september">September 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/october">October 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/november">November 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/december">December 2018</a>
+		          <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="#">Something else here</a>
+		        </div>
+		      </li>
+		      <li>
+		      	<!-- Add logout button -->
+				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+				<input type="submit" value="Logout" class="btn btn-outline-secondary btn-sm" style="margin: 5px 10px" />
+				</form:form>
+		      </li>
+		    </ul>
+		    	<div class="user min">
+		    	<!--  Show user name and roles -->
 				Logged as: <strong><security:authentication property="principal.username"/></strong>
 				| Roles: <strong><security:authentication property="principal.authorities"/></strong>	
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12">
-				<!-- Add logout button -->
-				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-				<input type="submit" value="Logout" class="btn btn-outline-secondary" style="position: absolute; bottom: 5px; right: 10px"/>
-				</form:form>				
-			</div>
-        </div>
-        
-        <!-- NAVBAR -->
-		<div class="row">
-			<div class="nav col-md-12 col-sm-12 col-xs-12">
-				<ul>
-				  <li><a href="${pageContext.request.contextPath}">Home</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/january">January 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/february">February 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/march">March 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/april">April 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/may">May 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/june">June 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/july">July 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/august">August 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/september">September 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/october">October 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/november">November 2018</a></li>
-				  <li><a href="${pageContext.request.contextPath}/user/december">December 2018</a></li>
-				</ul>			
-			</div>
-		</div>
-		
+				</div>
+		  </div>
+		</nav>
+      
+      
 		<br />
-        
+		
+        <!-- Show input with January Salary depend on username -->
+        <c:forEach var="theUser" items="${user}">	
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Total incomings:</label> 
-					<!-- Show input with January Salary depend on username -->
-					<c:forEach var="theUser" items="${user}">	
-						<input type="text" class="form-control" name="incomings" id="incomings" value="${theUser.januarySalary}">
-					</c:forEach>
-					
+						
+						<input type="text" class="form-control" id="incomings" value="${theUser.januarySalary}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Total outgoings:</label> 
-					<input type="text" class="form-control" name="outgoings" id="outgoings" value="${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}">
+					<input type="text" class="form-control" id="outgoings" value="${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Save Up:</label> 
-					<input type="text" class="form-control" style="color: red; font-weight: bold" name="saveUp" id="result">
+					<input type="text" class="form-control" style="color: red; font-weight: bold" id="result" value="${theUser.januarySalary-theSumJan[0]-theSumJan[1]-theSumJan[2]-theSumJan[3]-theSumJan[4]-theSumJan[5]-theSumJan[6]}">
 				</div>
 			</div>
 		</div>
-		
+		</c:forEach>
 	
 
         
@@ -197,15 +204,6 @@
   </div>
 </div>
 
-<script type="text/javascript">
-function showBalance()
-{
-	var x = document.getElementById("incomings").value;
-	var y = document.getElementById("outgoings").value;
-	var z = parseFloat(x) - parseFloat(y);
-	document.getElementById("result").value = z;
-}
-</script>
 
 </body>
 </html>

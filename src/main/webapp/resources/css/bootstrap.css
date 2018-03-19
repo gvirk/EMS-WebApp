@@ -3282,13 +3282,13 @@ tbody.collapse.show {
 .dropdown-item:hover, .dropdown-item:focus {
   color: #16181b;
   text-decoration: none;
-  background-color: #f8f9fa;
+  background-color: #E9ECEF;
 }
 
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: #009999;
 }
 
 .dropdown-item.disabled, .dropdown-item:disabled {

@@ -24,7 +24,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		// use jdbc authentication ... oh yeah!!!
+		// use jdbc authentication!!!
 		
 		auth.jdbcAuthentication().dataSource(securityDataSource);
 
@@ -38,6 +38,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/save*").hasAnyRole("MANAGER", "ADMIN")
 			.antMatchers("/user/delete").hasRole("ADMIN")
 			.antMatchers("/user/**").hasRole("EMPLOYEE")
+			.antMatchers("/leaders").hasRole("MANAGER")
 			.antMatchers("/resources/**").permitAll()
 			.and()
 			.formLogin()

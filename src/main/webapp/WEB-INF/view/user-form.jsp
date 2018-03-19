@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 
 <html>
@@ -28,6 +30,51 @@
 		</div>
         
         <br />
+        
+     	<!-- NAVBAR -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active font-size-nav">
+		        <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item active dropdown font-size-nav">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Expends 18'
+		        </a>
+		        <div class="dropdown-menu font-size-nav" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/january">January 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/february">February 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/march">March 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/april">April 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/may">May 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/june">June 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/july">July 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/august">August 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/september">September 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/october">October 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/november">November 2018</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/december">December 2018</a>
+		          <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="#">Something else here</a>
+		        </div>
+		      </li>
+		      <li>
+		      	<!-- Add logout button -->
+				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+				<input type="submit" value="Logout" class="btn btn-outline-secondary btn-sm" style="margin: 5px 10px" />
+				</form:form>
+		      </li>
+		    </ul>
+		    	<div class="user min">
+		    	<!--  Show user name and roles -->
+				Logged as: <strong><security:authentication property="principal.username"/></strong>
+				| Roles: <strong><security:authentication property="principal.authorities"/></strong>	
+				</div>
+		  </div>
+		</nav>
+		
+		<br />
         
         <!-- SAVE NEW USER -->
         <form:form action="saveUser" modelAttribute="user" method="POST">
