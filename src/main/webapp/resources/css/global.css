@@ -71,6 +71,12 @@
 	border-color: #3c763d
 }
 
+.background {
+  color: #495057;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
 
 
 
@@ -140,6 +146,5 @@
 }
 
 .min {
-    background-color: #E9ECEF;
     font-size: 0.8em;
 }

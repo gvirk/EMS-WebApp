@@ -2,6 +2,7 @@ package com.jarq.login.service;
 
 import java.util.List;
 
+import com.jarq.login.entity.JanuaryExpends;
 import com.jarq.login.entity.User;
 
 public interface UserService {
@@ -15,5 +16,19 @@ public interface UserService {
 	public void deleteUser(int theId);
 
 	public List<User> searchUsers(String theSearchName);
+
+	public List<JanuaryExpends> getJanuaryExpends();
+
+	public Object[] getSumJan();
+
+	public void deleteRow(int theId);
+
+	public JanuaryExpends getExpJan(int theId);
+
+	public void saveExpendsJan(JanuaryExpends theExpends);
+
+	public void saveNewExpendsJan(JanuaryExpends theJanuaryExpends);
+
+	public List<User> getUser();
 
 }

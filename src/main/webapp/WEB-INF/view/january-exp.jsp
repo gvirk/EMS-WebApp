@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<title>List Users</title>
+<title>January Expends</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
 				<img src="../resources/img/login2.png">
-	            <h1>Users list</h1>
+	            <h1>January</h1>
 				<h6>Expends Management System</h6>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
@@ -53,8 +53,8 @@
 			</div>
         </div>
         
-        <!-- Navbar -->
-        <div class="row">
+        <!-- NAVBAR -->
+		<div class="row">
 			<div class="nav col-md-12 col-sm-12 col-xs-12">
 				<ul>
 				  <li><a href="${pageContext.request.contextPath}">Home</a></li>
@@ -73,106 +73,115 @@
 				</ul>			
 			</div>
 		</div>
+		
+		<br />
         
-        <br />
-        <br />
-  
-	     <!-- SEARCH BOX --> 
-	     <form:form action="search" method="POST"> 
-	     <div class="row">
-	     	<div class="col-md-5 col-sm-5 col-xs-12">
-		      	<div class="input-group mb-3">
-				  <input type="text" name="theSearchName" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
-					  <div class="input-group-append">
-					    <input type="submit" value="Search" class="btn btn-outline-secondary" />
-					  </div>
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<div class="form-group">
+					<label>Total incomings:</label> 
+					<!-- Show input with January Salary depend on username -->
+					<c:forEach var="theUser" items="${user}">	
+						<input type="text" class="form-control" name="incomings" id="incomings" value="${theUser.januarySalary}">
+					</c:forEach>
+					
 				</div>
 			</div>
-				<div class="col-md-5 col-sm-5 col-xs-12">
-		         	<div class="form-group">
-		        </div>
-	        </div>	
-				        
-	        <!-- BUTTON add User -->
-	        <security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<div class="form-group">
+					<label>Total outgoings:</label> 
+					<input type="text" class="form-control" name="outgoings" id="outgoings" value="${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}">
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<div class="form-group">
+					<label>Save Up:</label> 
+					<input type="text" class="form-control" style="color: red; font-weight: bold" name="saveUp" id="result">
+				</div>
+			</div>
+		</div>
+		
+	
+
+        
+        <div class="row">
+	     	<div class="col-md-10 col-sm-10 col-xs-12">
+		      	<div class="form-group">
+				</div>
+			</div>
+	        <!-- ADD NEW EXPENDS BUTTON -->
 	        <div class="col-md-2 col-sm-2 col-xs-12">
 		        <div class="form-group">
-             		<input type="button" value="Add new user" class="btn btn-success btn-block" onclick="window.location.href='showFormForAdd'; return false;"/>
+             		<input type="button" value="Add new expends" class="btn btn-success btn-block" onclick="window.location.href='showFormForAddExpends'; return false;"/>
 		        </div>
 	        </div>
-	        </security:authorize>
-	        
-		 </div>
-	  	 </form:form>    
-        
+		</div>
 
 		<!--  HTML TABLE -->
 		
 		<div class="table-responsive center">
-			<table class="table table-hover table-sm">
+			<table class="table table-hover table-sm table-bordered">
 				<thead class="thead-light">	
 					<tr>
 						<th scope="col">Id</th>
-						<th scope="col">User name</th>
-						
-						<security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-						<th scope="col">Password</th>
-						</security:authorize>
-						
-						<th scope="col">First Name</th>
-						<th scope="col">Last Name</th>
-						<th scope="col">Email</th>
-						<th scope="col">Age</th>
-						
-						<security:authorize access="hasAnyRole('MANAGER','ADMIN')">
+						<th scope="col">Date</th>
+						<th scope="col">Eating</th>
+						<th scope="col">Mobile</th>
+						<th scope="col">Flat</th>
+						<th scope="col">Fuel</th>
+						<th scope="col">Tickets</th>
+						<th scope="col">Payment</th>
+						<th scope="col">Other</th>
+						<th scope="col">Total</th>
 						<th colspan="2" scope="col">Action</th>
-						</security:authorize>
-						
 					</tr>
 				</thead>
 				<tbody>
 				
-				<!-- loop over and print users -->
-				<c:forEach var="tempUser" items="${users}">
+				<!-- loop over and print expends -->
+				<c:forEach var="tempJanExp" items="${januaryExpends}">
 				
-					<!-- construct an "update" link with user id -->
-					<security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-					<c:url var="updateLink" value="/user/showFormForUpdate">
-						<c:param name="userId" value="${tempUser.id}" />
+					<!-- construct an "update" link with row id -->
+					<c:url var="updateLink" value="/user/showExpForUpdateJan">
+						<c:param name="rowId" value="${tempJanExp.id}" />
 					</c:url>
-					</security:authorize>
 					
-					<!-- construct an "delete" link with user id -->
-					<security:authorize access="hasRole('ADMIN')">
-					<c:url var="deleteLink" value="/user/delete">
-						<c:param name="userId" value="${tempUser.id}" />
+					<!-- construct an "delete" link with row id -->
+					<c:url var="deleteLink" value="/user/deleteRowJan">
+						<c:param name="rowId" value="${tempJanExp.id}" />
 					</c:url>
-					</security:authorize>
-					
+				
 					<tr>
-						<td>${tempUser.id}</td>
-						<td>${tempUser.username}</td>
-						
-						<security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-						<td>${tempUser.password}</td>
-						</security:authorize>
-						
-						<td>${tempUser.firstName}</td>
-						<td>${tempUser.lastName}</td>
-						<td>${tempUser.email}</td>
-						<td>${tempUser.age}</td>
-						
-						<security:authorize access="hasAnyRole('MANAGER','ADMIN')">
+						<td>${tempJanExp.id}</td>
+						<td>${tempJanExp.date}</td>
+						<td>${tempJanExp.eating}</td>
+						<td>${tempJanExp.mobile}</td>
+						<td>${tempJanExp.flat}</td>
+						<td>${tempJanExp.fuel}</td>
+						<td>${tempJanExp.tickets}</td>
+						<td>${tempJanExp.payment}</td>
+						<td>${tempJanExp.other}</td>
+						<td><strong>${tempJanExp.total=tempJanExp.eating+tempJanExp.mobile+tempJanExp.flat+tempJanExp.fuel+tempJanExp.tickets+tempJanExp.payment+tempJanExp.other}</strong></td>
+				
 						<td><a href="${updateLink}" class="btn btn-warning btn-block btn-sm" role="button">Edit</a></td>
-						</security:authorize>
-						
-						<security:authorize access="hasAnyRole('ADMIN')">
-						<td><a href="${deleteLink}" class="btn btn-danger btn-block btn-sm" role="button" onClick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a></td>
-						</security:authorize>
-						
+						<td><a href="${deleteLink}" class="btn btn-danger btn-block btn-sm" role="button" onClick="if (!(confirm('Are you sure you want to delete this expends?'))) return false">Delete</a></td>
 					</tr>
 				</c:forEach>
-	
+				
+					<tr class="background">
+						<td colspan="2"><strong>SUM:</strong></td>
+						<td><strong>${theSumJan[0]}</strong></td>
+						<td><strong>${theSumJan[1]}</strong></td>
+						<td><strong>${theSumJan[2]}</strong></td>
+						<td><strong>${theSumJan[3]}</strong></td>
+						<td><strong>${theSumJan[4]}</strong></td>
+						<td><strong>${theSumJan[5]}</strong></td>
+						<td><strong>${theSumJan[6]}</strong></td>
+						<td><strong>${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}</strong></td>
+						<td colspan="2"></td>
+					</tr>
+				
+				
 				</tbody>
 			</table>
 		</div>
@@ -188,6 +197,15 @@
   </div>
 </div>
 
+<script type="text/javascript">
+function showBalance()
+{
+	var x = document.getElementById("incomings").value;
+	var y = document.getElementById("outgoings").value;
+	var z = parseFloat(x) - parseFloat(y);
+	document.getElementById("result").value = z;
+}
+</script>
 
 </body>
 </html>

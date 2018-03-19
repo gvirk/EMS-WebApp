@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<title>List Users</title>
+<title>Expends Form</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
 				<img src="../resources/img/login2.png">
-	            <h1>Users list</h1>
+	            <h1>Expends Form</h1>
 				<h6>Expends Management System</h6>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
@@ -53,8 +53,8 @@
 			</div>
         </div>
         
-        <!-- Navbar -->
-        <div class="row">
+        <!-- NAVBAR -->
+		<div class="row">
 			<div class="nav col-md-12 col-sm-12 col-xs-12">
 				<ul>
 				  <li><a href="${pageContext.request.contextPath}">Home</a></li>
@@ -76,107 +76,75 @@
         
         <br />
         <br />
-  
-	     <!-- SEARCH BOX --> 
-	     <form:form action="search" method="POST"> 
-	     <div class="row">
-	     	<div class="col-md-5 col-sm-5 col-xs-12">
-		      	<div class="input-group mb-3">
-				  <input type="text" name="theSearchName" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
-					  <div class="input-group-append">
-					    <input type="submit" value="Search" class="btn btn-outline-secondary" />
-					  </div>
+        
+        <!-- Edit/Add Expends Bar -->
+        <!-- SAVE NEW EXPENDS -->
+        <form:form action="saveExpendsJan" modelAttribute="expendsJan" method="POST">
+        	
+       	<!-- need to associate this data with expends id -->
+       	<form:hidden path="id"/>
+       	
+     	<div class="row">
+			<div class="col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+					<label>Date:</label> 
+					<form:input path="date" type="text" class="form-control" name="date" required="required" placeholder="YYYY-MM-DD" />
 				</div>
 			</div>
-				<div class="col-md-5 col-sm-5 col-xs-12">
-		         	<div class="form-group">
-		        </div>
-	        </div>	
-				        
-	        <!-- BUTTON add User -->
-	        <security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-	        <div class="col-md-2 col-sm-2 col-xs-12">
-		        <div class="form-group">
-             		<input type="button" value="Add new user" class="btn btn-success btn-block" onclick="window.location.href='showFormForAdd'; return false;"/>
-		        </div>
-	        </div>
-	        </security:authorize>
-	        
-		 </div>
-	  	 </form:form>    
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Eating:</label>
+					<form:input path="eating" type="text" class="form-control" name="eating" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Mobile:</label> 
+					<form:input path="mobile" type="text" class="form-control" name="mobile" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Flat:</label> 
+					<form:input path="flat" type="text" class="form-control" name="flat" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Fuel:</label> 
+					<form:input path="fuel" type="text" class="form-control" name="fuel" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Tickets:</label> 
+					<form:input path="tickets" type="text" class="form-control" name="tickets" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Payment:</label> 
+					<form:input path="payment" type="text" class="form-control" name="payment" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Other:</label> 
+					<form:input path="other" type="text" class="form-control" name="other" />
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-12">
+				<div class="form-group">
+					<label>Action:</label>
+					<div style="text-align: right">
+						<input type="submit" value="Save expends"class="btn btn-success btn-block" />
+					</div>
+				</div>
+			</div>
+		</div>	
+		</form:form>					
         
-
-		<!--  HTML TABLE -->
-		
-		<div class="table-responsive center">
-			<table class="table table-hover table-sm">
-				<thead class="thead-light">	
-					<tr>
-						<th scope="col">Id</th>
-						<th scope="col">User name</th>
-						
-						<security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-						<th scope="col">Password</th>
-						</security:authorize>
-						
-						<th scope="col">First Name</th>
-						<th scope="col">Last Name</th>
-						<th scope="col">Email</th>
-						<th scope="col">Age</th>
-						
-						<security:authorize access="hasAnyRole('MANAGER','ADMIN')">
-						<th colspan="2" scope="col">Action</th>
-						</security:authorize>
-						
-					</tr>
-				</thead>
-				<tbody>
-				
-				<!-- loop over and print users -->
-				<c:forEach var="tempUser" items="${users}">
-				
-					<!-- construct an "update" link with user id -->
-					<security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-					<c:url var="updateLink" value="/user/showFormForUpdate">
-						<c:param name="userId" value="${tempUser.id}" />
-					</c:url>
-					</security:authorize>
-					
-					<!-- construct an "delete" link with user id -->
-					<security:authorize access="hasRole('ADMIN')">
-					<c:url var="deleteLink" value="/user/delete">
-						<c:param name="userId" value="${tempUser.id}" />
-					</c:url>
-					</security:authorize>
-					
-					<tr>
-						<td>${tempUser.id}</td>
-						<td>${tempUser.username}</td>
-						
-						<security:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-						<td>${tempUser.password}</td>
-						</security:authorize>
-						
-						<td>${tempUser.firstName}</td>
-						<td>${tempUser.lastName}</td>
-						<td>${tempUser.email}</td>
-						<td>${tempUser.age}</td>
-						
-						<security:authorize access="hasAnyRole('MANAGER','ADMIN')">
-						<td><a href="${updateLink}" class="btn btn-warning btn-block btn-sm" role="button">Edit</a></td>
-						</security:authorize>
-						
-						<security:authorize access="hasAnyRole('ADMIN')">
-						<td><a href="${deleteLink}" class="btn btn-danger btn-block btn-sm" role="button" onClick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a></td>
-						</security:authorize>
-						
-					</tr>
-				</c:forEach>
-	
-				</tbody>
-			</table>
-		</div>
-		
+ 
 		<!-- Footer -->
 		<div class="text-align: center">
 			<label class="label-bottom">Copyright c 2018 by Jaroslaw Kowalczyk</label>

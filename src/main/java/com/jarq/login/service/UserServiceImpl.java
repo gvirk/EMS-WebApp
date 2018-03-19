@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jarq.login.dao.UserDAO;
+import com.jarq.login.entity.JanuaryExpends;
 import com.jarq.login.entity.User;
 
 @Service
@@ -50,6 +51,55 @@ public class UserServiceImpl implements UserService {
 	public List<User> searchUsers(String theSearchName) {
 		
 		return userDAO.searchUsers(theSearchName);
+	}
+
+	@Override
+	@Transactional
+	public List<JanuaryExpends> getJanuaryExpends() {
+
+		return userDAO.getJanuaryExpends();
+	}
+
+	@Override
+	@Transactional
+	public Object[] getSumJan() {
+		
+		return userDAO.getSumJan();
+	}
+
+	@Override
+	@Transactional
+	public void deleteRow(int theId) {
+
+		userDAO.deleteRow(theId);
+	}
+
+	@Override
+	@Transactional
+	public JanuaryExpends getExpJan(int theId) {
+		
+		return userDAO.getExpJan(theId);
+	}
+
+	@Override
+	@Transactional
+	public void saveExpendsJan(JanuaryExpends theExpends) {
+		
+		userDAO.saveExpendsJan(theExpends);
+	}
+
+	@Override
+	@Transactional
+	public void saveNewExpendsJan(JanuaryExpends theJanuaryExpends) {
+		
+		userDAO.saveNewExpendsJan(theJanuaryExpends);
+	}
+	
+	@Override
+	@Transactional
+	public List<User> getUser() {
+		
+		return userDAO.getUser();
 	}
 
 }

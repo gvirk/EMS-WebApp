@@ -6,8 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import com.jarq.login.entity.JanuaryExpends;
 import com.jarq.login.entity.User;
 
 @Repository
@@ -40,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 
-		// save or update customer finally
+		// save or update user finally
 		currentSession.saveOrUpdate(theUser);
 
 	}
@@ -97,6 +99,105 @@ public class UserDAOImpl implements UserDAO {
 			// return the results return customers;
 			return users;
 		
+	}
+
+	@Override
+	public List<JanuaryExpends> getJanuaryExpends() {
+		
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		// create a query
+		Query<JanuaryExpends> theQuery = currentSession.createQuery("from JanuaryExpends", JanuaryExpends.class);
+	
+		// execute query and get result list
+		List<JanuaryExpends> januaryExp = theQuery.getResultList();
+
+		// return the results
+		return januaryExp;
+	}
+
+	@Override
+	public Object[] getSumJan() {
+
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// create a query
+		String sql = "SELECT SUM(e.eating), SUM(e.mobile), SUM(e.flat), SUM(e.fuel), SUM(e.tickets), SUM(e.payment), SUM(e.other) FROM JanuaryExpends e";
+		Query theQuery = currentSession.createQuery(sql);
+		
+		// execute query and get result list
+		Object[] sumJan = (Object[])theQuery.getSingleResult();
+		
+		// return the results
+		return sumJan;
+	}
+
+	@Override
+	public void deleteRow(int theId) {
+
+		// get the current hiberante session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// delete object with primary key
+		Query theQuery = currentSession.createQuery("delete from JanuaryExpends where id=:RowId");
+		theQuery.setParameter("RowId", theId);
+		
+		theQuery.executeUpdate();
+		
+	}
+
+	@Override
+	public JanuaryExpends getExpJan(int theId) {
+		
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// now retrieve/read from database using the primary key
+		JanuaryExpends theExpJan = currentSession.get(JanuaryExpends.class, theId);
+		
+		return theExpJan;
+	}
+
+	@Override
+	public void saveExpendsJan(JanuaryExpends theExpends) {
+		
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		// save or update expends finally
+		currentSession.saveOrUpdate(theExpends);
+	}
+
+	@Override
+	public void saveNewExpendsJan(JanuaryExpends theJanuaryExpends) {
+		
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		// save new expends finally
+		currentSession.save(theJanuaryExpends);
+	}
+
+	@Override
+	public List<User> getUser() {
+		
+		// get UserName from object from SpringSecurity
+		String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// create a query
+		Query theQuery = currentSession.createQuery("SELECT e FROM User e WHERE e.username = :userName", User.class);
+		theQuery.setParameter("userName", currentUser);
+		theQuery.uniqueResult();
+			
+		// execute query and get result list
+		List<User> theUser = theQuery.getResultList();
+		
+		return theUser;
 	}
 
 }
