@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<title>January Expends</title>
+<title>May Form</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
 				<img src="../resources/img/login2.png">
-	            <h1>January</h1>
+	            <h1>May Form</h1>
 				<h6>Expends Management System</h6>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
@@ -37,7 +37,6 @@
 			</div>
 		</div>
 		
-
      	<!-- NAVBAR -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <a class="navbar-brand" href="#">Navbar</a>
@@ -82,120 +81,77 @@
 				| Roles: <strong><security:authentication property="principal.authorities"/></strong>	
 				</div>
 		  </div>
-		</nav>
-      
-      
+		</nav>        
 		<br />
-		
-        <!-- Show input with January Salary depend on username -->
-        <c:forEach var="theUser" items="${user}">	
-		<div class="row">
-			<div class="col-md-4 col-sm-4 col-xs-12">
-				<div class="form-group">
-					<label>Total incomings:</label> 
-						
-						<input type="text" class="form-control" id="incomings" value="${theUser.januarySalary}">
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12">
-				<div class="form-group">
-					<label>Total outgoings:</label> 
-					<input type="text" class="form-control" id="outgoings" value="${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}">
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12">
-				<div class="form-group">
-					<label>Save Up:</label> 
-					<input type="text" class="form-control" style="color: red; font-weight: bold" id="result" value="${theUser.januarySalary-theSumJan[0]-theSumJan[1]-theSumJan[2]-theSumJan[3]-theSumJan[4]-theSumJan[5]-theSumJan[6]}">
-				</div>
-			</div>
-		</div>
-		</c:forEach>
-	
-
         
-        <div class="row">
-	     	<div class="col-md-10 col-sm-10 col-xs-12">
-		      	<div class="form-group">
+        <!-- Edit/Add Expends Bar -->
+        <!-- SAVE NEW EXPENDS -->
+        <form:form action="saveExpendsMay" modelAttribute="expendsMay" method="POST">
+        	
+       	<!-- need to associate this data with expends id -->
+       	<form:hidden path="id"/>
+       	
+     	<div class="row">
+			<div class="col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+					<label>Date:</label> 
+					<form:input path="date" type="text" class="form-control" name="date" required="required" placeholder="YYYY-MM-DD" />
 				</div>
 			</div>
-	        <!-- ADD NEW EXPENDS BUTTON -->
-	        <div class="col-md-2 col-sm-2 col-xs-12">
-		        <div class="form-group">
-             		<input type="button" value="Add new expends" class="btn btn-success btn-block" onclick="window.location.href='showFormForAddExpendsJan'; return false;"/>
-		        </div>
-	        </div>
-		</div>
-
-		<!--  HTML TABLE -->
-		
-		<div class="table-responsive center">
-			<table class="table table-hover table-sm table-bordered">
-				<thead class="thead-light">	
-					<tr>
-						<th scope="col">Id</th>
-						<th scope="col">Date</th>
-						<th scope="col">Eating</th>
-						<th scope="col">Mobile</th>
-						<th scope="col">Flat</th>
-						<th scope="col">Fuel</th>
-						<th scope="col">Tickets</th>
-						<th scope="col">Payment</th>
-						<th scope="col">Other</th>
-						<th scope="col">Total</th>
-						<th colspan="2" scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-				
-				<!-- loop over and print expends -->
-				<c:forEach var="tempJanExp" items="${januaryExpends}">
-				
-					<!-- construct an "update" link with row id -->
-					<c:url var="updateLink" value="/user/showExpForUpdateJan">
-						<c:param name="rowId" value="${tempJanExp.id}" />
-					</c:url>
-					
-					<!-- construct an "delete" link with row id -->
-					<c:url var="deleteLink" value="/user/deleteRowJan">
-						<c:param name="rowId" value="${tempJanExp.id}" />
-					</c:url>
-				
-					<tr>
-						<td>${tempJanExp.id}</td>
-						<td>${tempJanExp.date}</td>
-						<td>${tempJanExp.eating}</td>
-						<td>${tempJanExp.mobile}</td>
-						<td>${tempJanExp.flat}</td>
-						<td>${tempJanExp.fuel}</td>
-						<td>${tempJanExp.tickets}</td>
-						<td>${tempJanExp.payment}</td>
-						<td>${tempJanExp.other}</td>
-						<td><strong>${tempJanExp.total=tempJanExp.eating+tempJanExp.mobile+tempJanExp.flat+tempJanExp.fuel+tempJanExp.tickets+tempJanExp.payment+tempJanExp.other}</strong></td>
-				
-						<td><a href="${updateLink}" class="btn btn-warning btn-block btn-sm" role="button">Edit</a></td>
-						<td><a href="${deleteLink}" class="btn btn-danger btn-block btn-sm" role="button" onClick="if (!(confirm('Are you sure you want to delete this expends?'))) return false">Delete</a></td>
-					</tr>
-				</c:forEach>
-				
-					<tr class="background">
-						<td colspan="2"><strong>SUM:</strong></td>
-						<td><strong>${theSumJan[0]}</strong></td>
-						<td><strong>${theSumJan[1]}</strong></td>
-						<td><strong>${theSumJan[2]}</strong></td>
-						<td><strong>${theSumJan[3]}</strong></td>
-						<td><strong>${theSumJan[4]}</strong></td>
-						<td><strong>${theSumJan[5]}</strong></td>
-						<td><strong>${theSumJan[6]}</strong></td>
-						<td><strong>${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}</strong></td>
-						<td colspan="2"></td>
-					</tr>
-				
-				
-				</tbody>
-			</table>
-		</div>
-		
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Eating:</label>
+					<form:input path="eating" type="text" class="form-control" name="eating" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Mobile:</label> 
+					<form:input path="mobile" type="text" class="form-control" name="mobile" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Flat:</label> 
+					<form:input path="flat" type="text" class="form-control" name="flat" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Fuel:</label> 
+					<form:input path="fuel" type="text" class="form-control" name="fuel" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Tickets:</label> 
+					<form:input path="tickets" type="text" class="form-control" name="tickets" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Payment:</label> 
+					<form:input path="payment" type="text" class="form-control" name="payment" />
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-1 col-xs-12">
+				<div class="form-group">
+					<label>Other:</label> 
+					<form:input path="other" type="text" class="form-control" name="other" />
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-12">
+				<div class="form-group">
+					<label>Action:</label>
+					<div style="text-align: right">
+						<input type="submit" value="Save expends"class="btn btn-success btn-block" />
+					</div>
+				</div>
+			</div>
+		</div>	
+		</form:form>					
+        
+ 
 		<!-- Footer -->
 		<div class="text-align: center">
 			<label class="label-bottom">Copyright c 2018 by Jaroslaw Kowalczyk</label>

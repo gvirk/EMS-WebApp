@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<title>January Expends</title>
+<title>September Expends</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
 				<img src="../resources/img/login2.png">
-	            <h1>January</h1>
+	            <h1>September</h1>
 				<h6>Expends Management System</h6>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 center">
@@ -82,31 +82,29 @@
 				| Roles: <strong><security:authentication property="principal.authorities"/></strong>	
 				</div>
 		  </div>
-		</nav>
-      
+		</nav>      
       
 		<br />
 		
-        <!-- Show input with January Salary depend on username -->
+        <!-- Show input with Salary depend on username -->
         <c:forEach var="theUser" items="${user}">	
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Total incomings:</label> 
-						
-						<input type="text" class="form-control" id="incomings" value="${theUser.januarySalary}">
+					<input type="text" class="form-control" id="incomings" value="${theUser.septemberSalary}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Total outgoings:</label> 
-					<input type="text" class="form-control" id="outgoings" value="${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}">
+					<input type="text" class="form-control" id="outgoings" value="${theSumSep[0]+theSumSep[1]+theSumSep[2]+theSumSep[3]+theSumSep[4]+theSumSep[5]+theSumSep[6]}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Save Up:</label> 
-					<input type="text" class="form-control" style="color: red; font-weight: bold" id="result" value="${theUser.januarySalary-theSumJan[0]-theSumJan[1]-theSumJan[2]-theSumJan[3]-theSumJan[4]-theSumJan[5]-theSumJan[6]}">
+					<input type="text" class="form-control" style="color: red; font-weight: bold" id="result" value="${theUser.septemberSalary-theSumSep[0]-theSumSep[1]-theSumSep[2]-theSumSep[3]-theSumSep[4]-theSumSep[5]-theSumSep[6]}">
 				</div>
 			</div>
 		</div>
@@ -122,7 +120,7 @@
 	        <!-- ADD NEW EXPENDS BUTTON -->
 	        <div class="col-md-2 col-sm-2 col-xs-12">
 		        <div class="form-group">
-             		<input type="button" value="Add new expends" class="btn btn-success btn-block" onclick="window.location.href='showFormForAddExpendsJan'; return false;"/>
+             		<input type="button" value="Add new expends" class="btn btn-success btn-block" onclick="window.location.href='showFormForAddExpendsSep'; return false;"/>
 		        </div>
 	        </div>
 		</div>
@@ -149,29 +147,29 @@
 				<tbody>
 				
 				<!-- loop over and print expends -->
-				<c:forEach var="tempJanExp" items="${januaryExpends}">
+				<c:forEach var="tempSepExp" items="${septemberExpends}">
 				
 					<!-- construct an "update" link with row id -->
-					<c:url var="updateLink" value="/user/showExpForUpdateJan">
-						<c:param name="rowId" value="${tempJanExp.id}" />
+					<c:url var="updateLink" value="/user/showExpForUpdateSep">
+						<c:param name="rowId" value="${tempSepExp.id}" />
 					</c:url>
 					
 					<!-- construct an "delete" link with row id -->
-					<c:url var="deleteLink" value="/user/deleteRowJan">
-						<c:param name="rowId" value="${tempJanExp.id}" />
+					<c:url var="deleteLink" value="/user/deleteRowSep">
+						<c:param name="rowId" value="${tempSepExp.id}" />
 					</c:url>
 				
 					<tr>
-						<td>${tempJanExp.id}</td>
-						<td>${tempJanExp.date}</td>
-						<td>${tempJanExp.eating}</td>
-						<td>${tempJanExp.mobile}</td>
-						<td>${tempJanExp.flat}</td>
-						<td>${tempJanExp.fuel}</td>
-						<td>${tempJanExp.tickets}</td>
-						<td>${tempJanExp.payment}</td>
-						<td>${tempJanExp.other}</td>
-						<td><strong>${tempJanExp.total=tempJanExp.eating+tempJanExp.mobile+tempJanExp.flat+tempJanExp.fuel+tempJanExp.tickets+tempJanExp.payment+tempJanExp.other}</strong></td>
+						<td>${tempSepExp.id}</td>
+						<td>${tempSepExp.date}</td>
+						<td>${tempSepExp.eating}</td>
+						<td>${tempSepExp.mobile}</td>
+						<td>${tempSepExp.flat}</td>
+						<td>${tempSepExp.fuel}</td>
+						<td>${tempSepExp.tickets}</td>
+						<td>${tempSepExp.payment}</td>
+						<td>${tempSepExp.other}</td>
+						<td><strong>${tempSepExp.total=tempSepExp.eating+tempSepExp.mobile+tempSepExp.flat+tempSepExp.fuel+tempSepExp.tickets+tempSepExp.payment+tempSepExp.other}</strong></td>
 				
 						<td><a href="${updateLink}" class="btn btn-warning btn-block btn-sm" role="button">Edit</a></td>
 						<td><a href="${deleteLink}" class="btn btn-danger btn-block btn-sm" role="button" onClick="if (!(confirm('Are you sure you want to delete this expends?'))) return false">Delete</a></td>
@@ -180,17 +178,16 @@
 				
 					<tr class="background">
 						<td colspan="2"><strong>SUM:</strong></td>
-						<td><strong>${theSumJan[0]}</strong></td>
-						<td><strong>${theSumJan[1]}</strong></td>
-						<td><strong>${theSumJan[2]}</strong></td>
-						<td><strong>${theSumJan[3]}</strong></td>
-						<td><strong>${theSumJan[4]}</strong></td>
-						<td><strong>${theSumJan[5]}</strong></td>
-						<td><strong>${theSumJan[6]}</strong></td>
-						<td><strong>${theSumJan[0]+theSumJan[1]+theSumJan[2]+theSumJan[3]+theSumJan[4]+theSumJan[5]+theSumJan[6]}</strong></td>
+						<td><strong>${theSumSep[0]}</strong></td>
+						<td><strong>${theSumSep[1]}</strong></td>
+						<td><strong>${theSumSep[2]}</strong></td>
+						<td><strong>${theSumSep[3]}</strong></td>
+						<td><strong>${theSumSep[4]}</strong></td>
+						<td><strong>${theSumSep[5]}</strong></td>
+						<td><strong>${theSumSep[6]}</strong></td>
+						<td><strong>${theSumSep[0]+theSumSep[1]+theSumSep[2]+theSumSep[3]+theSumSep[4]+theSumSep[5]+theSumSep[6]}</strong></td>
 						<td colspan="2"></td>
 					</tr>
-				
 				
 				</tbody>
 			</table>
