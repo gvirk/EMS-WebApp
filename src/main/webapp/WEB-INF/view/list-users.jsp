@@ -68,6 +68,14 @@
 		          <a class="dropdown-item" href="${pageContext.request.contextPath}/user/december">December 2018</a>
 		         </div>
 		      </li>
+                <li class="nav-item active dropdown font-size-nav">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRest" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        REST API
+                    </a>
+                    <div class="dropdown-menu font-size-nav" aria-labelledby="navbarDropdownRest">
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/api/users">Show users</a>
+                    </div>
+                </li>
 		      <li>
 		      	<!-- Add logout button -->
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
