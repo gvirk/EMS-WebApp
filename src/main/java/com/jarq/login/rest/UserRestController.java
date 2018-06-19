@@ -28,6 +28,11 @@ public class UserRestController {
     @GetMapping("/users/{userId}")
     public User getUser(@PathVariable int userId) {
         User theUser= userService.getUser(userId);
+
+        if (theUser == null) {
+            throw new UserNotFoundException("User id not found - " + userId);
+        }
+
         return theUser;
     }
 
