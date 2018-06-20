@@ -17,9 +17,10 @@ User:
 
 Administrator:
 * `User searching`
-* `User adding, editing, deleting`
+* `User adding, editing, deleting by .jsp form`
 * `User expands adding, editing, deleteing`
 * `User incomings adding, editing`
+* `User getting, adding, editing, deleting by Json REST API`
 
 ## Technologies
 
