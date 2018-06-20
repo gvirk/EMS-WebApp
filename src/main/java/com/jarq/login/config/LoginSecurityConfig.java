@@ -37,6 +37,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/showForm*").hasAnyRole("MANAGER", "ADMIN")
 			.antMatchers("/user/save*").hasAnyRole("MANAGER", "ADMIN")
 			.antMatchers("/user/delete").hasRole("ADMIN")
+			.antMatchers("/api/**").hasRole("ADMIN")
 			.antMatchers("/user/**").hasRole("EMPLOYEE")
 			.antMatchers("/leaders").hasRole("MANAGER")
 			.antMatchers("/resources/**").permitAll()
