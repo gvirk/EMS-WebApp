@@ -26,7 +26,7 @@ Administrator:
 
 Backend:
 * `Java 8`
-* `Spring 5 (Core, MVC, Annotations, Java Config, Security)`
+* `Spring 5 (Core, MVC, Annotations, Java Config, Security, REST)`
 * `Hibernate 5 (CRUD)`
 * `MySQL`
 * `Maven`
